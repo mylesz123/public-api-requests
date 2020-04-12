@@ -17,7 +17,7 @@ function App() {
           </div>
         </div>
 
-        <div id="gallery" class="gallery">
+        <div id="gallery" className="gallery">
           <Gallery />
         </div>
 
