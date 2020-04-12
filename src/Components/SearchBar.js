@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function SearchBar() {
+    // look up how to return results, rev default on submit to prevent refresh
     return (
         <form action="#" method="get">
             <input type="search" id="search-input" class="search-input" placeholder="Search..." />

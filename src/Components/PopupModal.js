@@ -1,6 +1,9 @@
 import React from 'react'
 
 export default function PopupModal() {
+    // depending which gallery item is clicked,
+    // this popup should fire and only be shown for the correct user
+    // may make sense to make this a child of gallery
     return (
         <div className="modal-container">
             <div className="modal">
