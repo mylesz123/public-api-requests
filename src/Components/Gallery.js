@@ -64,7 +64,7 @@ export default function Gallery() {
                     </div>
                     <div className="card-info-container">
                         <h3 id="name" className="card-name cap">
-                            {result.name.title ? result.name.title : ""} {result.name.first} {result.name.last}
+                            {result.name.title ? result.name.title : ""}. {result.name.first} {result.name.last}
                         </h3>
                         <p className="card-text">{result.email}</p>
                         <p className="card-text cap">{result.location.city}, {result.location.state}</p>

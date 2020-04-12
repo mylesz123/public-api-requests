@@ -3,6 +3,9 @@ import React from 'react'
 export default function PopupModal({ results, closePopup, nextUser, prevUser, index }) {
     let selectedUser = results[index];
 
+    const date = new Date(selectedUser.dob.date);
+    const formattedBirthday = `${date.getDay()}-${date.getDate()}-${date.getFullYear()}`;
+
     return (
         <div className="modal-container">
             <div className="modal">
@@ -24,12 +27,12 @@ export default function PopupModal({ results, closePopup, nextUser, prevUser, in
                     <hr />
                     <p className="modal-text">{selectedUser.cell}</p>
                     <p className="modal-text">
-                        {`${selectedUser.location.street.number} ${selectedUser.location.street.name}.,`}
+                        {selectedUser.location.street.number} {selectedUser.location.street.name},
                     </p>
                     <p className="modal-text">
-                        {`${selectedUser.location.city}, ${selectedUser.location.state} ${selectedUser.location.postcode}`}
+                        {selectedUser.location.city}, {selectedUser.location.state} {selectedUser.location.postcode}
                     </p>
-                    <p className="modal-text">Birthday: {selectedUser.dob.date}</p>
+                    <p className="modal-text">Birthday: {formattedBirthday}</p>
                 </div>
             </div>
             <div class="modal-btn-container">
