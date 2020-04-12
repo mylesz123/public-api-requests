@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import PopupModal from './PopupModal';
 
 export default function Gallery() {
-    // this is responsible for populating users 
-    // use hook to get number of users to populate from api req
-    // can map through card-img-container and add data from request
     const [results, setResults] = useState([]);
-    const endpoint = "https://randomuser.me/api/?results=10";
+    const [selectedUser, setSelectedUser] = useState();
+    const [index, setIndex] = useState(0);
+
+    const resultsToDisplay = 15
+    const endpoint = `https://randomuser.me/api/?results=${resultsToDisplay}`;
+
+    const logError = (functionName , error, extraData) => {
+        console.error(
+            error, 
+            [functionName], 
+            extraData
+        )
+    }
 
     useEffect(() => {
         fetch(endpoint).then(
@@ -15,17 +25,40 @@ export default function Gallery() {
                     setResults(data.results)
                 }
             ).catch(
-                error => console.log({"There was an error with your request":error.message, "check the stack":error.stack})
+                error => logError(
+                    error, 
+                    "Gallery useEffect line 14", 
+                    {"Extra info" : endpoint}
+                )
             )
 
         return () => setResults([])
         
-    }, [])
+    }, [endpoint])
+
+    const showSelectedUser = (result, i) => {
+        setSelectedUser(result)
+        setIndex(i);
+    }
+
+    const closePopup = () => {
+        setSelectedUser();
+        setIndex(0);
+    }
+
+    const nextUser = () => {
+        console.log("clicked next user");
+        index !== results.length -1 && setIndex(prev => prev + 1);
+    }
+
+    const prevUser = () => {
+        index !== 0 && setIndex(prev => prev - 1);
+    }
 
     return (
-        <>
+        <div id="gallery" className="gallery">
             {results.map((result, index) => (
-                <div className="card" key={result.login.md5}>
+                <div className="card" key={result.login.md5} onClick={() => showSelectedUser(result, index)}>
                     <div className="card-img-container">
                         <img className="card-img" src={result.picture.large} alt="profile avatar" />
                     </div>
@@ -38,6 +71,16 @@ export default function Gallery() {
                     </div>
                 </div>
             ))}
-        </>
+
+            {selectedUser !== undefined && 
+                <PopupModal 
+                    results={results}
+                    closePopup={closePopup}
+                    nextUser={nextUser}
+                    prevUser={prevUser}
+                    index={index} 
+                />
+            }
+        </div>
     )
 }
