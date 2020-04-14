@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import Gallery from './Gallery';
 import Header from './Header';
 
 function App() {
-  return (
-    <>
-      <header>
-        <div className="header-inner-container">
-          <Header />
-          <SearchBar />
-        </div>
+  const [searchText, setSearchText] = useState("");
+  const [results, setResults] = useState([]);
 
-        <Gallery />
-      </header>
-    </>
+  const filteredResults = results.filter(result => {
+    return result.email.toLowerCase().indexOf(searchText) !== -1;
+  });
+
+  return (
+    <header>
+      <div className="header-inner-container">
+        <Header />
+        <SearchBar setSearchText={setSearchText} />
+      </div>
+
+      <Gallery results={filteredResults} setResults={setResults} />
+    </header>
   );
 }
 

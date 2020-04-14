@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PopupModal from './PopupModal';
 
-export default function Gallery() {
-    const [results, setResults] = useState([]);
+export default function Gallery({ results, setResults }) {
     const [selectedUser, setSelectedUser] = useState();
     const [index, setIndex] = useState(0);
 
